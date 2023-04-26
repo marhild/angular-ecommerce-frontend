@@ -5,9 +5,9 @@ import {ShopValidators} from "src/app/validators/shop-validators";
 import {CartService} from "../../services/cart.service";
 import {Router} from "@angular/router";
 import {CheckoutService} from "src/app/services/checkout.service";
-import {Order} from "../../models/order";
-import {OrderItem} from "../../models/order-item";
-import {Purchase} from "../../models/purchase";
+import {Order} from "../../common/order";
+import {OrderItem} from "../../common/order-item";
+import {Purchase} from "../../common/purchase";
 import { Country } from 'src/app/common/country';
 import { State } from 'src/app/common/state';
  
@@ -164,14 +164,6 @@ export class CheckoutComponent implements OnInit {
     const cartItems = this.cartService.cartItems;
  
     // create order-items from car-items
-    /*
-    let orderItems: OrderItem[] = []
-    for(let i = 0; i < cartItems.length; i++) {
-      orderItems[i] = new OrderItem(cartItems[i]);
-    }
-     */
- 
-    // short way do it
     let orderItems: OrderItem[] = cartItems.map(tempCartItem => new OrderItem(tempCartItem));
  
     // set up purchase
@@ -195,7 +187,7 @@ export class CheckoutComponent implements OnInit {
  
     // populate purchase - order and order-items
     purchase.order = order;
-    purchase.OrderItems = orderItems;
+    purchase.orderItems = orderItems;
  
     // call REST API via the checkout-service
     this.checkoutService.placeOrder(purchase).subscribe(
@@ -211,16 +203,6 @@ export class CheckoutComponent implements OnInit {
         }
       }
     );
- 
- 
-    console.log(this.checkoutFormGroup?.get('customer')?.value);
- 
-    console.log("The email address is " + this.checkoutFormGroup?.get('customer')?.value.email);
- 
-    console.log("The shipping address country is " + this.checkoutFormGroup?.get('shippingAddress')?.value.country.name);
- 
-    console.log("The shipping address state is " + this.checkoutFormGroup?.get('shippingAddress')?.value.state.name);
- 
   }
  
   resetCart() {

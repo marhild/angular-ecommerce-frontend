@@ -9,12 +9,4 @@ export class Purchase {
     billingAddress: Address;
     order: Order;
     orderItems: OrderItem[];
-
-    constructor(purchase: Purchase) {
-        this.customer = purchase.customer;
-        this.shippingAddress = purchase.shippingAddress;
-        this.billingAddress = purchase.billingAddress;
-        this.order = purchase.order;
-        this.orderItems = purchase.orderItems;
-    }
 }
